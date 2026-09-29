@@ -1,7 +1,8 @@
 // src/variants.ts
 export type ModelRow = {
   providerID: string;
-  id: string;
+  id?: string;
+  modelID?: string;
   variants?: Array<{ id: string }>;
 };
 
@@ -32,13 +33,26 @@ export class VariantStore {
   }
 }
 
+/**
+ * Normalize the model list. The live server resolves `ctx.model.list()` to
+ * `{ location, data: ModelRow[] }`; accept a bare array too (mocks, older
+ * shapes). Anything else yields no rows instead of throwing.
+ */
+function toRows(models: unknown): ModelRow[] {
+  if (Array.isArray(models)) return models as ModelRow[];
+  if (models !== null && typeof models === "object" && Array.isArray((models as { data?: unknown }).data)) {
+    return (models as { data: ModelRow[] }).data;
+  }
+  return [];
+}
+
 export function resolveValidLevels(
-  models: ModelRow[],
+  models: unknown,
   providerID: string | undefined,
   modelID: string | undefined,
 ): string[] {
   if (!providerID || !modelID) return [];
-  const found = models.find((m) => m.providerID === providerID && m.id === modelID);
+  const found = toRows(models).find((m) => m.providerID === providerID && (m.id ?? m.modelID) === modelID);
   if (!found || !Array.isArray(found.variants)) return [];
   return found.variants.map((v) => v.id).filter((id) => typeof id === "string" && id.length > 0);
 }

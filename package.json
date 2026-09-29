@@ -10,7 +10,7 @@
     "build": "tsc --noEmit"
   },
   "dependencies": {
-    "@opencode/plugin": "latest",
+    "@opencode/plugin": "2.0.19",
     "zod": "^3.23.0"
   },
   "devDependencies": {

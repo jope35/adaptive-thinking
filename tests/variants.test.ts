@@ -19,6 +19,23 @@ describe("resolveValidLevels", () => {
   it("returns empty when variants missing", () => {
     expect(resolveValidLevels([{ providerID: "x", id: "y" }], "x", "y")).toEqual([]);
   });
+
+  it("unwraps the live { location, data } envelope", () => {
+    expect(resolveValidLevels({ location: { directory: "/tmp/x" }, data: models }, "openai", "gpt-5")).toEqual([
+      "low",
+      "high",
+    ]);
+  });
+
+  it("matches modelID when id is absent", () => {
+    const rows = [{ providerID: "openai", modelID: "gpt-5", variants: [{ id: "low" }] }];
+    expect(resolveValidLevels({ data: rows }, "openai", "gpt-5")).toEqual(["low"]);
+  });
+
+  it("returns empty for non-list input instead of throwing", () => {
+    expect(resolveValidLevels(undefined, "openai", "gpt-5")).toEqual([]);
+    expect(resolveValidLevels({}, "openai", "gpt-5")).toEqual([]);
+  });
 });
 
 describe("VariantStore", () => {
