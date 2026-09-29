@@ -36,3 +36,4 @@ opencode plugin add @<scope>/opencode-adaptive-thinking
 - `Invalid … level` → use a level from the system prompt list.
 - `reasoningEffort` is OpenAI-side; Anthropic thinking models use `thinking.budgetTokens` — set effort on the matching provider model.
 - Restart TUI / use a fresh session after config changes.
+- Typo'd model IDs silently fall back to no valid levels.

@@ -92,4 +92,21 @@ describe("plugin setup", () => {
     expect(event.system[0].text).toContain("Valid reasoning effort levels for this session: low, high.");
     expect(event.options.reasoningEffort).toBe("high");
   });
+
+  it("hook resolves valid levels from model.modelID fallback (no id)", async () => {
+    const { ctx, hookCbs, addedTools } = makeCtx({});
+    const mod = await import("../src/index.js");
+    await (mod as any).default.setup(ctx);
+    await addedTools[0].execute({ level: "high" }, { sessionID: "s1", progress: async () => {} });
+    const event: any = {
+      sessionID: "s1",
+      system: [],
+      options: {},
+      model: { providerID: "openai", modelID: "gpt-5" },
+    };
+    await hookCbs[0](event);
+    expect(event.system.length).toBe(1);
+    expect(event.system[0].text).toContain("Valid reasoning effort levels for this session: low, high.");
+    expect(event.options.reasoningEffort).toBe("high");
+  });
 });

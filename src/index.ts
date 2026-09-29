@@ -21,7 +21,7 @@ export default Plugin.define({
   async setup(ctx: any) {
     const parsed = parseConfig(ctx.options ?? {});
     if (!parsed.ok) {
-      // No toast surface in server ctx; log only (quiet suppresses even this to warn).
+      // No toast surface in server ctx; invalid config always logs via console.error (quiet reserved for future toast suppression).
       console.error(`[adaptive-thinking] Invalid config: ${parsed.error}`);
       return;
     }
@@ -63,8 +63,8 @@ export default Plugin.define({
 
     regs.push(
       await ctx.session.hook("context", async (event: any) => {
-        const model = event?.model as { providerID?: string; id?: string } | undefined;
-        const valid = resolveValidLevels(await ctx.model.list(), model?.providerID, model?.id);
+        const model = event?.model as { providerID?: string; id?: string; modelID?: string } | undefined;
+        const valid = resolveValidLevels(await ctx.model.list(), model?.providerID, model?.id ?? (model as any)?.modelID);
         pruneStale(store, event.sessionID, valid);
         const current = store.get(event.sessionID);
         event.system.push({
