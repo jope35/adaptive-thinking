@@ -1,6 +1,8 @@
 {
   "name": "adaptive-thinking",
   "version": "2.0.0",
+  "description": "OpenCode plugin that lets the model pick its own reasoning level",
+  "license": "MIT",
   "type": "module",
   "exports": {
     ".": "./src/index.ts"
