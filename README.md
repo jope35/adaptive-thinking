@@ -1,21 +1,21 @@
-# @<scope>/opencode-adaptive-thinking
+# adaptive-thinking
 
 Let the model pick its own reasoning level (OpenCode v2).
 
 ## Install
 
 ```jsonc
-{ "plugins": ["@<scope>/opencode-adaptive-thinking"] }
+{ "plugins": ["adaptive-thinking"] }
 ```
 
 ```sh
-opencode plugin add @<scope>/opencode-adaptive-thinking
+opencode plugin add adaptive-thinking
 ```
 
 ## Options (all optional)
 
 ```jsonc
-{ "plugins": [{ "package": "@<scope>/opencode-adaptive-thinking", "options": {
+{ "plugins": [{ "package": "adaptive-thinking", "options": {
   "enabled": true,
   "quiet": false,
   "toolName": "set_reasoning_effort",

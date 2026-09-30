@@ -1,6 +1,6 @@
 {
-  "name": "@<scope>/opencode-adaptive-thinking",
-  "version": "0.1.0",
+  "name": "adaptive-thinking",
+  "version": "2.0.0",
   "type": "module",
   "exports": {
     ".": "./src/index.ts"
