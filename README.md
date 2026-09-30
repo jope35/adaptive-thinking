@@ -48,3 +48,7 @@ XDG_CONFIG_HOME=/tmp/at-verify/cfg opencode run --standalone -m <provider>/<mode
 ```
 
 Use the single-file form above: directory entries in the `plugins` configuration were silently ignored in testing. The check passes when the transcript shows the Valid levels sentence and the model calls `set_reasoning_effort` on its own.
+
+## Credits
+
+Idea adapted from [ian-pascoe/opencode-adaptive-thinking](https://github.com/ian-pascoe/opencode-adaptive-thinking).
