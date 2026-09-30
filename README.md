@@ -37,3 +37,14 @@ opencode plugin add @<scope>/opencode-adaptive-thinking
 - `reasoningEffort` is OpenAI-side; Anthropic thinking models use `thinking.budgetTokens` — set effort on the matching provider model.
 - Restart TUI / use a fresh session after config changes.
 - Typo'd model IDs silently fall back to no valid levels.
+
+## Verify locally
+
+```sh
+mkdir -p /tmp/at-verify/proj /tmp/at-verify/cfg/opencode/plugins
+cd /tmp/at-verify/proj
+echo 'export { default } from "<checkout>/src/index.ts";' > /tmp/at-verify/cfg/opencode/plugins/adaptive-thinking.ts
+XDG_CONFIG_HOME=/tmp/at-verify/cfg opencode run --standalone -m <provider>/<model> "Summarize this repo in one line"
+```
+
+Use the single-file form above: directory entries in the `plugins` configuration were silently ignored in testing. The check passes when the transcript shows the Valid levels sentence and the model calls `set_reasoning_effort` on its own.
