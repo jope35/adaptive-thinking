@@ -20,7 +20,7 @@ Requires OpenCode 2.x (tested on 2.0.19).
 
 ## Install
 
-```
+```jsonc
 {
   "$schema": "https://opencode.ai/config.json",
   "plugins": ["adaptive-thinking"]
@@ -33,7 +33,7 @@ Restart OpenCode after install. Restart picks up config changes.
 
 Run a headless session in a scratch project and read the transcript:
 
-```
+```sh
 mkdir -p /tmp/at-verify/proj /tmp/at-verify/cfg/opencode/plugins
 cd /tmp/at-verify/proj
 echo 'export { default } from "<checkout>/src/index.ts";' > /tmp/at-verify/cfg/opencode/plugins/adaptive-thinking.ts
@@ -48,7 +48,7 @@ Every option is optional.
 
 With options (object form):
 
-```
+```jsonc
 {
   "plugins": [
     { "package": "adaptive-thinking", "options": { "toolName": "set_reasoning_effort" } }
@@ -68,7 +68,7 @@ With options (object form):
 
 1. Defaults only:
 
-```
+```jsonc
 {
   "plugins": ["adaptive-thinking"]
 }
@@ -76,7 +76,7 @@ With options (object form):
 
 2. Custom tool name only:
 
-```
+```jsonc
 {
   "plugins": [{ "package": "adaptive-thinking", "options": { "toolName": "set_effort" } }]
 }
@@ -84,7 +84,7 @@ With options (object form):
 
 3. Everything set:
 
-```
+```jsonc
 {
   "plugins": [
     {
@@ -103,7 +103,7 @@ With options (object form):
 
 ## How it works
 
-```
+```mermaid
 flowchart LR
     agent["Agent"]
     tool["set_reasoning_effort tool"]
