@@ -17,11 +17,7 @@ export class VariantStore {
   set(sessionID: string, level: string): void {
     if (this.map.has(sessionID)) this.map.delete(sessionID);
     this.map.set(sessionID, level);
-    while (this.map.size > this.cap) {
-      const oldest = this.map.keys().next().value as string | undefined;
-      if (oldest === undefined) break;
-      this.map.delete(oldest);
-    }
+    if (this.map.size > this.cap) this.map.delete(this.map.keys().next().value as string);
   }
 
   delete(sessionID: string): void {

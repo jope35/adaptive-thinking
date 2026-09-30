@@ -43,7 +43,7 @@ export default Plugin.define({
           },
           execute: async (input: any, toolCtx: any) => {
             const sessionID: string = toolCtx?.sessionID ?? "";
-            const level: string = (input as { level?: unknown })?.level as string;
+            const level: unknown = (input as { level?: unknown })?.level;
             const model = await currentModel(ctx, sessionID);
             const valid = resolveValidLevels(await ctx.model.list(), model.providerID, model.id);
             if (valid.length === 0) {
@@ -64,7 +64,7 @@ export default Plugin.define({
     regs.push(
       await ctx.session.hook("context", async (event: any) => {
         const model = event?.model as { providerID?: string; id?: string; modelID?: string } | undefined;
-        const valid = resolveValidLevels(await ctx.model.list(), model?.providerID, model?.id ?? (model as any)?.modelID);
+        const valid = resolveValidLevels(await ctx.model.list(), model?.providerID, model?.id ?? model?.modelID);
         pruneStale(store, event.sessionID, valid);
         const current = store.get(event.sessionID);
         event.system.push({
