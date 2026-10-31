@@ -16,7 +16,7 @@ OpenCode plugin. The model picks its own reasoning level per turn.
 - [Limits](#limits)
 - [Credits](#credits)
 
-Requires OpenCode 2.x (tested on 2.0.19).
+Requires OpenCode 2.x (tested on 2.2.5).
 
 ## Install
 

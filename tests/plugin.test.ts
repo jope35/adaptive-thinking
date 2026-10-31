@@ -33,12 +33,13 @@ function makeCtx(options: unknown) {
 
 describe("plugin setup", () => {
   it("registers tool + hook by default", async () => {
-    const { ctx } = makeCtx({});
+    const { ctx, addedTools } = makeCtx({});
     const mod = await import("../src/index.js");
     const plugin = (mod as any).default;
     await plugin.setup(ctx);
     expect(ctx.tool.transform).toHaveBeenCalledTimes(1);
     expect(ctx.session.hook).toHaveBeenCalledTimes(1);
+    expect(addedTools[0].options.codemode).toBe(false);
   });
 
   it("registers nothing when disabled", async () => {

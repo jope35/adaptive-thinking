@@ -35,6 +35,7 @@ export default Plugin.define({
         editor.add({
           name: config.toolName,
           description: config.toolDescription,
+          options: { codemode: false },
           input: {
             type: "object",
             properties: { level: { type: "string", description: LEVEL_DESC } },
